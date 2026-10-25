@@ -230,7 +230,7 @@ async function fetchCycle(){
   }
   // 10 estados por ciclo, em rodízio: cada UF atualiza a cada ~15 s
   const batch=[];
-  for(let i=0;i<10;i++){batch.push(UFS[ufIdx%UFS.length]);ufIdx++;}
+  for(let i=0;i<2;i++){batch.push(UFS[ufIdx%UFS.length]);ufIdx++;}
   await Promise.all(batch.map(async uf=>{
     try{uf2[uf]=parse(await getJSON(url(elec,uf)));}catch(_){}
   }));
@@ -440,7 +440,7 @@ $("btnTest").addEventListener("click",()=>{
 loadHist();
 loadFirstRoundPriors().then(render);
 fetchCycle();
-setInterval(fetchCycle,5000);
+setInterval(fetchCycle,1000);
 })();
 </script>
 </body>
